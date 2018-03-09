@@ -76,14 +76,14 @@
     <v-footer height="auto" color="orange" :fixed="fixed" app>
       <v-container fluid>
         <v-layout row justify-center>
-        <a v-for="(accounts, i) in social" :key="i" :href=accounts.url target="_blank" style="text-decoration-line: none;">
-          <v-btn icon>
-            <v-icon>{{ accounts.icon }}</v-icon>
-          </v-btn>
-        </a>
+          <a v-for="(accounts, i) in social" :key="i" :href=accounts.url target="_blank" style="text-decoration-line: none;">
+            <v-btn icon>
+              <v-icon size="24px">{{ accounts.icon }}</v-icon>
+            </v-btn>
+          </a>
         </v-layout>
         <v-layout row justify-center>
-          <span class="headline">&copy; 2018 - dad2cl3</span>
+          <span>&copy; 2018 - <strong>dad2cl3</strong></span>
         </v-layout>
       </v-container>
     </v-footer>
@@ -95,13 +95,13 @@
     data () {
       return {
         clipped: false,
-        drawer: true,
+        drawer: false,
         fixed: false,
         items: [
           { icon: 'home', title: 'Home', to: '/' },
-          { icon: 'pie_chart', title: 'Iron Numbers', to: '/iron-numbers' },
+          // { icon: 'pie_chart', title: 'Iron Numbers', to: '/iron-numbers' },
           { icon: 'message', title: 'Iron Code', to: '/iron-code' },
-          { icon: 'assessment', title: 'Iron Application', to: '/iron-application' },
+          // { icon: 'assessment', title: 'Iron Application', to: '/iron-application' },
           { icon: 'person', title: 'Iron Crew', to: '/iron-crew' }
         ],
         icons: ['fa-facebook', 'fa-twitter', 'fa-instagram'],
