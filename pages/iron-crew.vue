@@ -2,7 +2,7 @@
   <v-tabs fixed-tabs v-model="tab">
     <v-tabs-slider color='orange'></v-tabs-slider>
     <v-tab v-for='clan in clans' :key='clan.clan_id' :href='"#tab-" + clan.clan_id'>
-      {{ clan.clan_name }}
+      <strong>{{ clan.clan_name }}</strong>
     </v-tab>
     <v-tabs-items>
       <v-tab-item v-for='(clan, i) in clans' :key='clan.clan_id' :id='`tab-${clan.clan_id}`' :style="i === 0 ? 'transition: none;' : 'display: none;'">
@@ -11,8 +11,13 @@
             <v-flex xs12 sm4 md4 lg3 v-for='j in (cardCounts[i])' :key='j'>
               <v-card flat color="orange">
                 <v-card-text dark>
-                  <span v-for='member in members[clan.clan_name].slice(25*(j-1),25*j-1)' class="title">
-                    <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;">{{ member.destiny_name }}</a></br>
+                  <span v-for='member in members[clan.clan_name].slice(25*(j-1),25*j-1)' class="subheading">
+                    <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;">
+                      <strong>
+                        {{ member.destiny_name }}
+                        <span v-if="member.admin" class="red--text caption text--darken-2">* Admin</span>
+                      </strong>
+                    </a></br>
                   </span>
                 </v-card-text>
               </v-card>

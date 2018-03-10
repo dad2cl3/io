@@ -17,6 +17,7 @@
         </v-text-field>
         <v-select label="Choose your profile" :items="profiles" item-text="profileName" v-model="profile" v-if="profiles.length > 0" prepend-icon="person" required></v-select>
 
+        <v-select chips deletable-chips multiple prepend-icon="games" label="Choose your platform(s)" :items="platformOptions" v-model="platforms" hint="* Required" persistent-hint required></v-select>
         <v-radio-group label="Were you referred to us by an existing Iron Orange member?" row v-model="referred">
           <v-radio label="Yes" value="yes"></v-radio>
           <v-radio label="No" value="no"></v-radio>
@@ -59,7 +60,9 @@
         profiles: [],
         name: null,
         email: null,
-        additionalInfo: null
+        additionalInfo: null,
+        platformOptions: ['PlayStation', 'Xbox', 'PC'],
+        platforms: []
       }
     },
     validations: {
@@ -78,13 +81,16 @@
       profile: {
         required
       },
+      platforms: {
+        required
+      },
       referredBy: {
         required: requiredIf('isReferredByOptional')
       },
       heardAboutUs: {
         required: requiredIf('isHeardAboutUsOptional')
       },
-      validationGroup: ['ageCheck', 'ironCode', 'name', 'email', 'profile']
+      validationGroup: ['ageCheck', 'ironCode', 'name', 'email', 'profile', 'platforms']
     },
     computed: {
       isReferredByOptional () {

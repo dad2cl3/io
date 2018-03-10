@@ -99,9 +99,9 @@
         fixed: false,
         items: [
           { icon: 'home', title: 'Home', to: '/' },
-          // { icon: 'pie_chart', title: 'Iron Numbers', to: '/iron-numbers' },
+          { icon: 'pie_chart', title: 'Iron Numbers', to: '/iron-numbers' },
           { icon: 'message', title: 'Iron Code', to: '/iron-code' },
-          // { icon: 'assessment', title: 'Iron Application', to: '/iron-application' },
+          { icon: 'assessment', title: 'Iron Application', to: '/iron-application' },
           { icon: 'person', title: 'Iron Crew', to: '/iron-crew' }
         ],
         icons: ['fa-facebook', 'fa-twitter', 'fa-instagram'],
