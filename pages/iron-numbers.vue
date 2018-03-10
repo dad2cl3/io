@@ -1,11 +1,11 @@
 <template>
   <v-container fluid grid-list-lg>
     <v-layout row wrap justify-center>
-      <v-flex>
+      <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
           <div class="container">
-            <div class="chart-container" style="position: relative; margin: auto; height: 60vh; width: 80vw;">
+            <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="lastSeen" :options="lastSeenOptions"></pie-chart>
             </div>
           </div>
@@ -17,13 +17,13 @@
           </v-card-title> -->
         </v-card>
       </v-flex>
-    </v-layout>
-    <v-layout row wrap justify-center>
-      <v-flex>
+    <!-- </v-layout>
+    <v-layout row wrap justify-center> -->
+      <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
           <div class="container">
-            <div class="chart-container" style="position: relative; margin: auto; height: 60vh; width: 80vw;">
+            <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="characters" :options="characterOptions"></pie-chart>
             </div>
           </div>
@@ -35,13 +35,13 @@
           </v-card-title> -->
         </v-card>
       </v-flex>
-    </v-layout>
-    <v-layout row wrap justify-center>
-      <v-flex>
+    <!-- </v-layout>
+    <v-layout row wrap justify-center> -->
+      <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
           <div class="container">
-            <div class="chart-container" style="position: relative; margin: auto; height: 60vh; width: 80vw;">
+            <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="classes" :options="classesOptions"></pie-chart>
             </div>
           </div>
@@ -53,13 +53,13 @@
           </v-card-title> -->
         </v-card>
       </v-flex>
-    </v-layout>
-    <v-layout row wrap justify-center>
-      <v-flex>
+    <!-- </v-layout>
+    <v-layout row wrap justify-center> -->
+      <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
           <div class="container">
-            <div class="chart-container" style="position: relative; margin: auto; height: 60vh; width: 80vw;">
+            <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="modes" :options="modeOptions"></pie-chart>
             </div>
           </div>
@@ -71,13 +71,13 @@
           </v-card-title> -->
         </v-card>
       </v-flex>
-    </v-layout>
-    <v-layout row wrap justify-center>
-      <v-flex>
+    <!-- </v-layout>
+    <v-layout row wrap justify-center> -->
+      <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
           <div class="container">
-            <div class="chart-container" style="position: relative; margin: auto; height: 60vh; width: 80vw;">
+            <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="bestPvEWeapons" :options="bestPveWeaponsOptions"></pie-chart>
             </div>
           </div>
@@ -89,13 +89,13 @@
           </v-card-title> -->
         </v-card>
       </v-flex>
-    </v-layout>
-    <v-layout row wrap justify-center>
-      <v-flex>
+    <!-- </v-layout>
+    <v-layout row wrap justify-center> -->
+      <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
           <div class="container">
-            <div class="chart-container" style="position: relative; margin: auto; height: 60vh; width: 80vw;">
+            <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="bestPvPWeapons" :options="bestPvPWeaponsOptions"></pie-chart>
             </div>
           </div>
@@ -195,7 +195,7 @@
           labels: ['Hunter', 'Titan', 'Warlock'],
           datasets: [
             {
-              data: [181, 196, 174],
+              data: [160, 166, 156],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
@@ -225,14 +225,14 @@
             fontFamily: 'Roboto',
             fontStyle: 'normal',
             fontColor: 'rgb(255,255,255)',
-            text: '...is partial to titans...'
+            text: '...is a bit partial to titans...'
           }
         },
         characters: {
           labels: ['Three', 'Two', 'One'],
           datasets: [
             {
-              data: [161, 24, 20],
+              data: [114, 51, 38],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',

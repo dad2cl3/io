@@ -1,8 +1,14 @@
 <template>
-  <v-carousel>
-    <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src" transition="fade" reverse-transition="fade">
-    </v-carousel-item>
-  </v-carousel>
+  <v-container fluid>
+    <v-layout>
+      <v-flex xs12>
+        <v-carousel>
+          <v-carousel-item v-for="(item, i) in items" :key="i" height="80%" :src="item.src" transition="fade" reverse-transition="fade">
+          </v-carousel-item>
+        </v-carousel>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -30,3 +36,6 @@
     }
   }
 </script>
+
+<style scoped>
+</style>
