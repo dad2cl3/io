@@ -138,7 +138,7 @@
               profiles.forEach(function readProfiles (profile) {
                 let newProfile = {
                   profileName: profile.displayName,
-                  profileUrl: `https://www.bungie.net/${profile.locale}/Profile/254/${profile.membershipId}`
+                  profileUrl: `https://www.bungie.net/${profile.locale}/Profile/254/${profile.membershipId}/${profile.displayName}`
                 }
                 newProfiles.push(newProfile)
               })
@@ -163,12 +163,12 @@
       },
       submit () {
         if (!this.isInvalid) {
-          alert('form completed')
           let responses = {
             responses: {
               age_check: this.ageCheck,
               iron_code: this.ironCode,
               profile_url: this.profile.profileUrl,
+              platforms: this.platforms,
               referred: this.referred,
               referred_by: this.referredBy,
               heard_about_us: this.heardAboutUs,
@@ -178,10 +178,23 @@
             }
           }
 
-          console.log(responses)
-          axios.post('https://io.dad2cl3.net/discord/applications/send', responses)
+          axios.post('https://io.dad2cl3.net/applications', responses)
             .then(response => {
-              console.log(response)
+              let appId = response.data.app_id
+
+              if (appId != null) {
+                responses['responses']['appId'] = appId
+                console.log(responses)
+                axios.post('https://io.dad2cl3.net/discord/applications/send', responses)
+                  .then(response => {
+                    console.log(response)
+                    let status = response.data.status_code
+
+                    if (status === 204) {
+                      this.$router.replace('/application/' + appId)
+                    }
+                  })
+              }
             })
         }
       }

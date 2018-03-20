@@ -1,11 +1,15 @@
 <template>
-  <v-container fluid>
-    <v-layout row>
+  <v-container contain>
+    <v-layout row class="mb-5">
       <v-flex xs12>
-        <v-carousel>
-          <v-carousel-item v-for="(item, i) in items" :key="i" height="80%" :src="item.src" transition="fade" reverse-transition="fade">
-          </v-carousel-item>
-        </v-carousel>
+        <v-card flat>
+          <v-card-media>
+            <v-carousel>
+              <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src" transition="fade" reverse-transition="fade">
+              </v-carousel-item>
+            </v-carousel>
+          </v-card-media>
+        </v-card>
       </v-flex>
     </v-layout>
     <v-layout row wrap>
@@ -334,4 +338,11 @@
 </script>
 
 <style scoped>
+
+@media screen and (max-width: 500px) {
+  .carousel {
+    height: 175px;
+  }
+}
+
 </style>

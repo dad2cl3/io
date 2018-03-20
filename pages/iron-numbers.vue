@@ -4,7 +4,7 @@
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
-          <div class="container">
+          <div class="container" v-if="frequencyLoaded">
             <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="lastSeen" :options="lastSeenOptions"></pie-chart>
             </div>
@@ -22,7 +22,7 @@
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
-          <div class="container">
+          <div class="container" v-if="charactersLoaded">
             <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="characters" :options="characterOptions"></pie-chart>
             </div>
@@ -40,7 +40,7 @@
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
-          <div class="container">
+          <div class="container" v-if="classesLoaded">
             <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="classes" :options="classesOptions"></pie-chart>
             </div>
@@ -58,7 +58,7 @@
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
-          <div class="container">
+          <div class="container" v-if="modeLoaded">
             <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="modes" :options="modeOptions"></pie-chart>
             </div>
@@ -113,18 +113,19 @@
 
 <script>
   import PieChart from '~/plugins/pie'
+  import axios from 'axios'
 
   export default {
     data () {
       return {
         modes: {
-          labels: ['PvE', 'PvP'],
+          labels: [],
           datasets: [
             {
-              data: [18908, 35770],
+              data: [],
               backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(255, 165, 0, 1)'
+                'rgba(255, 165, 0, 1)',
+                'rgba(255, 99, 132, 1)'
               ]
             }
           ]
@@ -153,11 +154,12 @@
             text: '...definitely prefers PvP...'
           }
         },
+        modeLoaded: false,
         lastSeen: {
-          labels: ['Weekly', 'Monthly', 'Quarterly', 'Slackers'],
+          labels: [],
           datasets: [
             {
-              data: [83, 31, 64, 27],
+              data: [],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
@@ -191,11 +193,12 @@
             text: '...is pretty active...'
           }
         },
+        frequencyLoaded: false,
         classes: {
-          labels: ['Hunter', 'Titan', 'Warlock'],
+          labels: [],
           datasets: [
             {
-              data: [160, 166, 156],
+              data: [],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
@@ -228,11 +231,12 @@
             text: '...is a bit partial to titans...'
           }
         },
+        classesLoaded: false,
         characters: {
-          labels: ['Three', 'Two', 'One'],
+          labels: [],
           datasets: [
             {
-              data: [114, 51, 38],
+              data: [],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
@@ -265,21 +269,18 @@
             text: '...plays three characters...'
           }
         },
+        charactersLoaded: false,
         bestPvEWeapons: {
-          labels: ['Auto Rifle', 'Grenade', 'Hand Cannon', 'Melee', 'Pulse Rifle', 'Scout Rifle', 'Sidearm', 'Submachinegun', 'Super'],
+          labels: ['Auto Rifle', 'Scout Rifle', 'Hand Cannon', 'Melee', 'Other'],
           datasets: [
             {
-              data: [256, 2, 54, 49, 9, 101, 2, 2, 3],
+              data: [260, 101, 54, 47, 17],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)'
+                'rgba(0, 255, 0, 1)',
+                'rgba(0, 0, 0, 1)'
               ]
             }
           ]
@@ -307,20 +308,16 @@
           }
         },
         bestPvPWeapons: {
-          labels: ['Auto Rifle', 'Scout Rifle', 'Pulse Rifle', 'Super', 'Submachinegun', 'Melee', 'Hand Cannon', 'Grenade', 'Sidearm'],
+          labels: ['Auto Rifle', 'Scout Rifle', 'Pulse Rifle', 'Super', 'Other'],
           datasets: [
             {
-              data: [277, 48, 33, 14, 8, 7, 5, 2, 2],
+              data: [282, 45, 33, 14, 39],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)',
-                'rgba(0, 0, 255, 1)'
+                'rgba(0, 255, 0, 1)',
+                'rgba(0, 0, 0, 1)'
               ]
             }
           ]
@@ -351,6 +348,58 @@
     },
     components: {
       PieChart
+    },
+    mounted () {
+      let url = 'https://io.dad2cl3.net/stats'
+
+      let params = {
+        stats: 'clan_activities'
+      }
+
+      axios.get(url, { params })
+        .then(response => {
+          this.modes.labels = response.data.labels
+          this.modes.datasets[0].data = response.data.data
+          this.modeLoaded = true
+        })
+
+      params = {
+        stats: 'clan_characters'
+      }
+
+      axios.get(url, { params })
+        .then(response => {
+          this.characters.labels = response.data.labels
+          this.characters.datasets[0].data = response.data.data
+          this.charactersLoaded = true
+        })
+
+      params = {
+        stats: 'clan_classes'
+      }
+
+      axios.get(url, { params })
+        .then(response => {
+          this.classes.labels = response.data.labels
+          this.classes.datasets[0].data = response.data.data
+          this.classesLoaded = true
+        })
+
+      params = {
+        stats: 'clan_frequency'
+      }
+
+      axios.get(url, { params })
+        .then(response => {
+          let labels = response.data.labels
+
+          labels.forEach((label) => {
+            this.lastSeen.labels.push(label.substring(3))
+          })
+          // this.lastSeen.labels = response.data.labels
+          this.lastSeen.datasets[0].data = response.data.data
+          this.frequencyLoaded = true
+        })
     }
   }
 </script>
