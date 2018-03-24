@@ -17,7 +17,7 @@
         <v-card flat dark>
           <!-- Main card title -->
           <v-layout row wrap justify-center>
-            <span class="mt-2 display-2">
+            <span class="mt-2 display-1">
               <strong>Leaderboards</strong>
             </span>
           </v-layout>
