@@ -1,11 +1,11 @@
 <template>
   <v-card>
     <v-card-title primary-title>
-      <v-layout row justify-center class="display-2"> Iron Code</v-layout>
+      <v-layout row wrap justify-center class="display-2 text-xs-center"> Iron Code of Conduct</v-layout>
     </v-card-title>
     <v-card-text>
-      <v-layout row wrap text-xs-center class="headline">Iron Orange Code of Conduct</v-layout>
-      </br>
+      <!-- <v-layout row wrap justify-center class="headline text-xs-center">Code of Conduct</v-layout>
+      </br> -->
       <v-divider dark></v-divider>
       </br>
       <v-layout row class="subheading"><strong>About Us</strong></v-layout>

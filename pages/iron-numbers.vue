@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-lg>
+  <v-container fluid grid-list-lg class="pa-0">
     <v-layout row wrap justify-center>
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
@@ -76,7 +76,7 @@
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
-          <div class="container">
+          <div class="container" v-if="bestPveWeaponsLoaded">
             <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="bestPvEWeapons" :options="bestPveWeaponsOptions"></pie-chart>
             </div>
@@ -94,7 +94,7 @@
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
           <!-- <v-card-media> -->
-          <div class="container">
+          <div class="container" v-if="bestPvPWeaponsLoaded">
             <div class="Chart" style="position: relative; display: block; margin: auto; height: 100; width: 100;">
               <pie-chart :data="bestPvPWeapons" :options="bestPvPWeaponsOptions"></pie-chart>
             </div>
@@ -271,10 +271,10 @@
         },
         charactersLoaded: false,
         bestPvEWeapons: {
-          labels: ['Auto Rifle', 'Scout Rifle', 'Hand Cannon', 'Melee', 'Other'],
+          labels: [],
           datasets: [
             {
-              data: [260, 101, 54, 47, 17],
+              data: [],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
@@ -307,11 +307,12 @@
             text: '...loves auto rifles in PvE...'
           }
         },
+        bestPveWeaponsLoaded: false,
         bestPvPWeapons: {
-          labels: ['Auto Rifle', 'Scout Rifle', 'Pulse Rifle', 'Super', 'Other'],
+          labels: [],
           datasets: [
             {
-              data: [282, 45, 33, 14, 39],
+              data: [],
               backgroundColor: [
                 'rgba(255, 165, 0, 1)',
                 'rgba(255, 0, 0, 1)',
@@ -343,7 +344,8 @@
             fontStyle: 'normal',
             text: '...and PvP.'
           }
-        }
+        },
+        bestPvPWeaponsLoaded: false
       }
     },
     components: {
@@ -399,6 +401,72 @@
           // this.lastSeen.labels = response.data.labels
           this.lastSeen.datasets[0].data = response.data.data
           this.frequencyLoaded = true
+        })
+
+      params = {
+        stats: 'best_pve_weapons'
+      }
+
+      axios.get(url, { params })
+        .then(response => {
+          let stats = response.data
+          let labels = stats.labels
+          let data = stats.data
+
+          let limit = 4
+          let others = 0
+
+          let newLabels = []
+          let newData = []
+
+          for (let i = 0; i < labels.length; i++) {
+            if (i < limit) {
+              newLabels.push(labels[i])
+              newData.push(data[i])
+            } else {
+              others += data[i]
+            }
+          }
+
+          newLabels.push('Others')
+          newData.push(others)
+
+          this.bestPvEWeapons.labels = newLabels
+          this.bestPvEWeapons.datasets[0].data = newData
+          this.bestPveWeaponsLoaded = true
+        })
+
+      params = {
+        stats: 'best_pvp_weapons'
+      }
+
+      axios.get(url, { params })
+        .then(response => {
+          let stats = response.data
+          let labels = stats.labels
+          let data = stats.data
+
+          let limit = 4
+          let others = 0
+
+          let newLabels = []
+          let newData = []
+
+          for (let i = 0; i < labels.length; i++) {
+            if (i < limit) {
+              newLabels.push(labels[i])
+              newData.push(data[i])
+            } else {
+              others += data[i]
+            }
+          }
+
+          newLabels.push('Others')
+          newData.push(others)
+
+          this.bestPvPWeapons.labels = newLabels
+          this.bestPvPWeapons.datasets[0].data = newData
+          this.bestPvPWeaponsLoaded = true
         })
     }
   }
