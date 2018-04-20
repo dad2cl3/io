@@ -93,3 +93,25 @@
     </v-card-actions>
   </v-card>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        title: 'Iron Code'
+      }
+    },
+    head () {
+      return {
+        title: this.title,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: 'Iron Code of Conduct'
+          }
+        ]
+      }
+    }
+  }
+</script>
