@@ -12,12 +12,13 @@
               <v-card flat color="orange">
                 <v-card-text dark>
                   <span v-for='member in members[clan.clan_name].slice(25*(j-1),25*j-1)' class="subheading">
-                    <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;">
+                    <!-- <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;"> -->
+                    <router-link :to="`/component-test/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}`" target="_blank" style="color: #ffffff; text-decoration-line: none;">
                       <strong>
                         {{ member.destiny_name }}
                         <span v-if="member.admin" class="red--text caption text--darken-2">* Admin</span>
                       </strong>
-                    </a></br>
+                    <!-- </a> --></router-link><br/>
                   </span>
                 </v-card-text>
               </v-card>
@@ -61,6 +62,18 @@
 
           this.cardCounts = cardCounts
         })
+    },
+    head () {
+      return {
+        title: this.title,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: 'Current Iron Orange Members'
+          }
+        ]
+      }
     }
   }
 </script>  

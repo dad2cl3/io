@@ -468,6 +468,18 @@
           this.bestPvPWeapons.datasets[0].data = newData
           this.bestPvPWeaponsLoaded = true
         })
+    },
+    head () {
+      return {
+        title: this.title,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: 'Iron Orange By The Numbers'
+          }
+        ]
+      }
     }
   }
 </script>
