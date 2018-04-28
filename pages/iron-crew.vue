@@ -13,7 +13,7 @@
                 <v-card-text dark>
                   <span v-for='member in members[clan.clan_name].slice(25*(j-1),25*j-1)' class="subheading">
                     <!-- <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;"> -->
-                    <router-link :to="`/component-test/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}`" target="_blank" style="color: #ffffff; text-decoration-line: none;">
+                    <router-link :to="`/component-test/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}`" target="_blank" :style="getTextColor(member.destiny_membership_type)">
                       <strong>
                         {{ member.destiny_name }}
                         <span v-if="member.admin" class="red--text caption text--darken-2">* Admin</span>
@@ -40,6 +40,27 @@
         members: null,
         cardCounts: null,
         tab: null
+      }
+    },
+    methods: {
+      getTextColor (membershipType) {
+        switch (membershipType) {
+          // color: #ffffff; text-decoration-line: none;
+          case 1:
+            console.log('Xbox')
+            return 'color: gold; text-decoration-line: none;'
+            // break
+          case 2:
+            console.log('PS4')
+            return 'color: darkblue; text-decoration-line: none;'
+            // break
+          case 4:
+            console.log('Battle.net')
+            return 'color: blue; text-decoration-line: none;'
+            // break
+          default:
+            return 'color: white; text-decoration-line: none;'
+        }
       }
     },
     mounted () {
