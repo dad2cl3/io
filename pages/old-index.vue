@@ -3,12 +3,14 @@
     <v-layout row class="mb-5">
       <v-flex xs12>
         <v-card flat>
-          <v-card-media>
+          <!-- <v-card-media contain> -->
+          <v-content>
             <v-carousel>
               <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src" transition="fade" reverse-transition="fade">
               </v-carousel-item>
             </v-carousel>
-          </v-card-media>
+          <!-- </v-card-media> -->
+          </v-content>
         </v-card>
       </v-flex>
     </v-layout>
@@ -339,10 +341,6 @@
 
 <style scoped>
 
-@media screen and (max-width: 500px) {
-  .carousel {
-    height: 175px;
-  }
-}
+
 
 </style>

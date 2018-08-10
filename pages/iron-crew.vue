@@ -13,7 +13,7 @@
                 <v-card-text dark>
                   <span v-for='member in members[clan.clan_name].slice(25*(j-1),25*j-1)' class="subheading">
                     <!-- <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;"> -->
-                    <router-link :to="`/component-test/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}`" target="_blank" :style="getTextColor(member.destiny_membership_type)">
+                    <router-link :to="`/iron-profile/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}`" target="_blank" :style="getTextColor(member.destiny_membership_type)">
                       <strong>
                         {{ member.destiny_name }}
                         <span v-if="member.admin" class="red--text caption text--darken-2">* Admin</span>
@@ -47,15 +47,15 @@
         switch (membershipType) {
           // color: #ffffff; text-decoration-line: none;
           case 1:
-            console.log('Xbox')
+            // console.log('Xbox')
             return 'color: gold; text-decoration-line: none;'
             // break
           case 2:
-            console.log('PS4')
+            // console.log('PS4')
             return 'color: darkblue; text-decoration-line: none;'
             // break
           case 4:
-            console.log('Battle.net')
+            // console.log('Battle.net')
             return 'color: blue; text-decoration-line: none;'
             // break
           default:
@@ -64,25 +64,28 @@
       }
     },
     mounted () {
-      axios.get('https://io.dad2cl3.net/ironcrew')
-        .then(response => {
-          console.log(response)
-          let clans = response.data.clans
-          let members = response.data.members
+      this.clans = this.$store.state.ironCrew.clans
+      this.members = this.$store.state.ironCrew.members
 
-          this.clans = clans
-          this.members = members
-          this.$nextTick(function () { this.tab = `tab-${clans[0].clan_id}` })
+      this.$nextTick(function () { this.tab = `tab-${this.clans[0].clan_id}` })
 
-          let cardCounts = []
-          clans.forEach(function readClans (clan) {
-            let memberCount = members[clan.clan_name].length
-            let cardCount = Math.ceil(memberCount / 25)
-            cardCounts.push(cardCount)
-          })
+      let members = this.members
 
-          this.cardCounts = cardCounts
-        })
+      let cardCounts = []
+      this.clans.forEach(function readClans (clan) {
+        let memberCount = members[clan.clan_name].length
+        let cardCount = Math.ceil(memberCount / 25)
+        cardCounts.push(cardCount)
+      })
+
+      this.cardCounts = cardCounts
+    },
+    async fetch (context) {
+      let store = context.store
+      let url = 'https://io.dad2cl3.net/ironcrew'
+
+      let ironCrew = await axios.get(url)
+      store.commit('setIronCrew', ironCrew.data)
     },
     head () {
       return {

@@ -48,6 +48,7 @@
     </v-toolbar>
     <v-content>
       <v-container fluid class="default-container">
+        <v-progress-circular indeterminate v-if="!isLoaded"></v-progress-circular>
         <nuxt />
       </v-container>
     </v-content>
@@ -87,6 +88,7 @@
   export default {
     data () {
       return {
+        isLoaded: false,
         clipped: false,
         drawer: false,
         fixed: false,
