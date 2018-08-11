@@ -26,47 +26,13 @@
     </v-navigation-drawer>
     <v-toolbar color="orange" fixed app :clipped-left="clipped">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-      <!-- <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn> -->
-      <!-- <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn> -->
-      <!-- <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>remove</v-icon>
-      </v-btn> -->
       <v-toolbar-title v-text="title"></v-toolbar-title>
     </v-toolbar>
     <v-content>
       <v-container fluid class="default-container">
-        <v-progress-circular indeterminate v-if="!isLoaded"></v-progress-circular>
         <nuxt />
       </v-container>
     </v-content>
-    <!-- <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-    >
-      <v-list>
-        <v-list-tile @click.native="right = !right">
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer> -->
     <v-footer height="auto" color="orange" :fixed="fixed" app>
       <v-container fluid>
         <v-layout row justify-center>
@@ -94,10 +60,11 @@
         fixed: false,
         items: [
           { icon: 'home', title: 'Home', to: '/' },
-          { icon: 'pie_chart', title: 'Iron Numbers', to: '/iron-numbers' },
           { icon: 'message', title: 'Iron Code', to: '/iron-code' },
-          { icon: 'assessment', title: 'Iron Application', to: '/iron-application' },
-          { icon: 'person', title: 'Iron Crew', to: '/iron-crew' }
+          { icon: 'pie_chart', title: 'Iron Numbers', to: '/iron-numbers' },
+          { icon: 'person', title: 'Iron Crew', to: '/iron-crew' },
+          { icon: 'collections', title: 'Iron Lore', to: '/iron-lore' },
+          { icon: 'assessment', title: 'Iron Application', to: '/iron-application' }
         ],
         icons: ['fa-facebook', 'fa-twitter', 'fa-instagram'],
         social: [
