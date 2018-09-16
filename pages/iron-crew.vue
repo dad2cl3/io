@@ -1,4 +1,14 @@
 <template>
+  <v-container>
+  <v-layout row justify-center>
+    <v-dialog v-model="loading" persistent fullscreen content-class="loading-dialog">
+      <v-container fill-height>
+        <v-layout row justify-center align-center>
+          <v-progress-circular indeterminate :size="70" :width="7" color="orange"></v-progress-circular>
+        </v-layout>
+      </v-container>
+    </v-dialog>
+  </v-layout>
   <v-tabs fixed-tabs v-model="tab">
     <v-tabs-slider color='orange'></v-tabs-slider>
     <v-tab v-for='clan in clans' :key='clan.clan_id' :href='"#tab-" + clan.clan_id'>
@@ -13,7 +23,7 @@
                 <v-card-text dark>
                   <span v-for='member in members[clan.clan_name].slice(25*(j-1),25*j-1)' class="subheading">
                     <!-- <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;"> -->
-                    <router-link :to="`/iron-profile/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}`" target="_blank" :style="getTextColor(member.destiny_membership_type)">
+                    <router-link :to="`/iron-profile/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}&clanName=${clan.clan_name}`" target="_blank" :style="getTextColor(member.destiny_membership_type)">
                       <strong>
                         {{ member.destiny_name }}
                         <span v-if="member.admin" class="red--text caption text--darken-2">* Admin</span>
@@ -28,10 +38,11 @@
       </v-tab-item>
     </v-tabs-items>
   </v-tabs>
+  </v-container>
 </template>
 
 <script>
-  import axios from 'axios'
+  // import axios from 'axios'
 
   export default {
     data () {
@@ -39,9 +50,17 @@
         clans: null,
         members: null,
         cardCounts: null,
-        tab: null
+        tab: null,
+        loading: true,
+        title: 'Iron Crew'
       }
     },
+    /* computed: {
+      ironCrew () {
+        console.log('something')
+        return this.$store.getters.getIronCrew
+      }
+    }, */
     methods: {
       getTextColor (membershipType) {
         switch (membershipType) {
@@ -63,6 +82,12 @@
         }
       }
     },
+    beforeCreate () {
+      this.loading = true
+    },
+    beforeMount () {
+      this.loading = true
+    },
     mounted () {
       this.clans = this.$store.state.ironCrew.clans
       this.members = this.$store.state.ironCrew.members
@@ -79,14 +104,15 @@
       })
 
       this.cardCounts = cardCounts
+      this.loading = false
     },
-    async fetch (context) {
+    /* async fetch (context) {
       let store = context.store
-      let url = 'https://io.dad2cl3.net/ironcrew'
+      let url = process.env.API_ROOT_URL + '/ironcrew'
 
-      let ironCrew = await axios.get(url)
+      let ironCrew = await context.$axios.get(url)
       store.commit('setIronCrew', ironCrew.data)
-    },
+    }, */
     head () {
       return {
         title: this.title,
@@ -98,6 +124,17 @@
           }
         ]
       }
-    }
+    } /* ,
+    async asyncData (context) {
+      console.log('Loading Iron Crew...')
+      let url = process.env.API_ROOT_URL + '/ironcrew'
+      console.log(url)
+      let ironCrew = await context.$axios.get(url)
+      if (ironCrew.hasOwnProperty('data')) {
+        console.log('Returning data...')
+        console.log(JSON.stringify({ clans: ironCrew.data.clans, members: ironCrew.data.members }))
+        return { clans: ironCrew.data.clans, members: ironCrew.data.members }
+      }
+    } */
   }
 </script>  

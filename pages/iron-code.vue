@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="pa-2">
     <v-card-title primary-title>
       <v-layout row wrap justify-center class="display-2 text-xs-center"> Iron Code of Conduct</v-layout>
     </v-card-title>

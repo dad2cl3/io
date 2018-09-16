@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-lg class="pa-0">
+  <v-container fluid grid-list-lg class="pa-2">
     <v-layout row wrap justify-center>
       <v-flex xs12 sm6 md6 lg4>
         <v-card class="elevation-10">
@@ -118,6 +118,7 @@
   export default {
     data () {
       return {
+        targetStats: [],
         modes: {
           labels: [],
           datasets: [
@@ -352,8 +353,10 @@
       PieChart
     },
     mounted () {
+      let ironNumbers = this.$store.state.ironNumbers
+      console.log(ironNumbers)
       let url = 'https://io.dad2cl3.net/stats'
-
+      /*
       let params = {
         stats: 'clan_activities'
       }
@@ -363,9 +366,14 @@
           this.modes.labels = response.data.labels
           this.modes.datasets[0].data = response.data.data
           this.modeLoaded = true
-        })
+        }) */
+      // Get the activity stats from the store
+      let activityStats = ironNumbers.clan_activities
+      this.modes.labels = activityStats.data.labels
+      this.modes.datasets[0].data = activityStats.data.data
+      this.modeLoaded = true
 
-      params = {
+      /* let params = {
         stats: 'clan_characters'
       }
 
@@ -374,9 +382,14 @@
           this.characters.labels = response.data.labels
           this.characters.datasets[0].data = response.data.data
           this.charactersLoaded = true
-        })
+        }) */
 
-      params = {
+      activityStats = ironNumbers.clan_characters
+      this.characters.labels = activityStats.data.labels
+      this.characters.datasets[0].data = activityStats.data.data
+      this.charactersLoaded = true
+
+      let params = {
         stats: 'clan_classes'
       }
 
@@ -479,6 +492,25 @@
             content: 'Iron Orange By The Numbers'
           }
         ]
+      }
+    },
+    async fetch (context) {
+      // console.log(targetStats.length)
+      let store = context.store
+      let targetStats = store.state.targetStats
+      let url = `${process.env.API_ROOT_URL}/stats`
+
+      for (let i = 0; i < targetStats.length; i++) {
+        // console.log(targetStats[i])
+        let params = {
+          stats: `${targetStats[i]}`
+        }
+        // console.log(params)
+        let data = await axios.get(url, { params })
+        let stats = {}
+        stats.data = data.data
+        stats.type = targetStats[i]
+        store.commit('setIronNumbers', stats)
       }
     }
   }

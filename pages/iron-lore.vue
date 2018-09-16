@@ -8,7 +8,7 @@
       </v-card-title>
       <v-divider></v-divider>
       <v-container>
-        <v-layout row justify-center>
+        <!-- <v-layout row justify-center> -->
           <v-progress-circular color="orange" indeterminate v-show="isLoading"></v-progress-circular>
           <v-tabs v-show="isLoaded">
             <v-tabs-slider color="orange"></v-tabs-slider>
@@ -18,11 +18,12 @@
                 <v-layout row wrap justify-center>
                   <ItemLoreCard v-if="loreType === 'inventory'" v-for="(item, i) in lore.lore[loreType]" :item="item" :key="i"></ItemLoreCard>
                   <GrimoireLoreCard v-if="loreType === 'grimoire'" v-for="(card, i) in lore.lore[loreType]" :card="card" :key="i"></GrimoireLoreCard>
+                  <RecordsLoreCard v-if="loreType === 'records'" v-for="(card, i) in lore.lore[loreType]" :card="card" :key="i"></RecordsLoreCard>
                 </v-layout>
               </v-container>
             </v-tab-item>
           </v-tabs>
-        </v-layout>
+        <!-- </v-layout> -->
       </v-container>
     </v-card>
   </v-container>
@@ -31,10 +32,11 @@
 <script>
   import ItemLoreCard from '../components/item-lore-card'
   import GrimoireLoreCard from '../components/grimoire-lore-card'
+  import RecordsLoreCard from '../components/records-lore-card'
   import axios from 'axios'
 
   export default {
-    components: {GrimoireLoreCard, ItemLoreCard},
+    components: {GrimoireLoreCard, ItemLoreCard, RecordsLoreCard},
     data () {
       return {
         isLoading: false,
@@ -47,11 +49,13 @@
         lore: {
           types: [
             'grimoire',
-            'inventory'
+            'inventory',
+            'records'
           ],
           lore: {
             grimoire: [],
-            inventory: []
+            inventory: [],
+            records: []
           }
         },
         troll: [
@@ -74,12 +78,13 @@
 
         this.lore.lore.grimoire = []
         this.lore.lore.inventory = []
+        this.lore.lore.records = []
 
         let searchString = this.searchString
         console.log(searchString)
 
-        let url = 'https://io.dad2cl3.net/discord/loresearch'
-
+        let url = `${process.env.API_ROOT_URL}/discord/loresearch`
+        console.log('Getting grimoire lore')
         // get the grimoire cards
         axios.get(url, {params: { type: 'grimoire', search: searchString }})
           .then(response => {
@@ -99,21 +104,38 @@
             this.isLoading = false
             this.isLoaded = true
           })
-
+        console.log('Getting inventory lore')
         // get the inventory items
         axios.get(url, {params: { type: 'inventory', search: searchString }})
           .then(response => {
             if (response.data.hasOwnProperty('inventory')) {
               this.lore.lore.inventory = response.data.inventory
-              if (this.lore.lore.inventory !== {}) {
-                let inventoryCount = this.lore.lore.inventory.length
-                // console.log(inventoryCount)
-                if (inventoryCount > 0) {
-                  this.tabLabelClass['inventory'] = 'lore-found'
-                } else {
-                  this.tabLabelClass['inventory'] = 'no-lore-found'
-                }
+              let inventoryCount = this.lore.lore.inventory.length
+              // console.log(inventoryCount)
+              if (inventoryCount > 0) {
+                this.tabLabelClass['inventory'] = 'lore-found'
+              } else {
+                this.tabLabelClass['inventory'] = 'no-lore-found'
               }
+            } else {
+              this.lore.lore.inventory = this.troll
+            }
+          })
+        console.log('Getting records lore')
+        // get the records items
+        axios.get(url, {params: { type: 'records', search: searchString }})
+          .then(response => {
+            if (response.data.hasOwnProperty('records')) {
+              this.lore.lore.records = response.data.records
+              let inventoryCount = this.lore.lore.records.length
+              // console.log(inventoryCount)
+              if (inventoryCount > 0) {
+                this.tabLabelClass['records'] = 'lore-found'
+              } else {
+                this.tabLabelClass['records'] = 'no-lore-found'
+              }
+            } else {
+              this.lore.lore.records = this.troll
             }
           })
       }
@@ -131,7 +153,7 @@
   }
 
   .lore-found {
-    color: yellow;
+    color: orange;
   }
 
 </style>

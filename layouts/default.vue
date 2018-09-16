@@ -29,22 +29,23 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <v-container fluid class="default-container">
+      <v-container fluid grid-list-xl class="default-container pa-0">
         <nuxt />
       </v-container>
     </v-content>
     <v-footer height="auto" color="orange" :fixed="fixed" app>
-      <v-container fluid>
-        <v-layout row justify-center>
+      <v-container fluid class="pa-1">
+        <v-layout row justify-center wrap>
           <a v-for="(accounts, i) in social" :key="i" :href=accounts.url target="_blank" style="text-decoration-line: none;">
             <v-btn icon>
               <v-icon size="24px">{{ accounts.icon }}</v-icon>
             </v-btn>
           </a>
+          <v-flex xs12 text-xs-center>&copy; 2018 - <strong>dad2cl3</strong></v-flex>
         </v-layout>
-        <v-layout row justify-center>
+        <!-- <v-layout row justify-center>
           <span>&copy; 2018 - <strong>dad2cl3</strong></span>
-        </v-layout>
+        </v-layout> -->
       </v-container>
     </v-footer>
   </v-app>
@@ -66,7 +67,7 @@
           { icon: 'collections', title: 'Iron Lore', to: '/iron-lore' },
           { icon: 'assessment', title: 'Iron Application', to: '/iron-application' }
         ],
-        icons: ['fa-facebook', 'fa-twitter', 'fa-instagram'],
+        icons: ['fa-facebook', 'fa-twitter', 'fa-instagram', 'fa-discord'],
         social: [
           {
             url: 'https://www.facebook.com/groups/ironorange/',
@@ -79,6 +80,10 @@
           {
             url: 'https://www.instagram.com/ironorangeclan/',
             icon: 'fa-instagram'
+          },
+          {
+            url: 'https://discord.gg/uNXJD83',
+            icon: 'fa-discord'
           }
         ],
         miniVariant: false,
