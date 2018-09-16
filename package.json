@@ -11,15 +11,16 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
+    "@nuxtjs/dotenv": "^1.1.1",
     "@nuxtjs/font-awesome": "^1.0.3",
-    "axios": "^0.18.0",
     "chart.js": "^2.7.2",
-    "npm": "^5.8.0",
-    "nuxt": "^1.4.0",
-    "vue-chartjs": "^3.3.1",
-    "vue-meta": "^1.5.0",
+    "npm": "^5.10.0",
+    "nuxt": "^1.4.2",
+    "vue-chartjs": "^3.4.0",
+    "vue-meta": "^1.5.3",
     "vuelidate": "^0.6.2",
-    "vuetify": "^1.0.17"
+    "vuetify": "^1.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -27,9 +28,9 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-html": "^3.1.1",
-    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1"
