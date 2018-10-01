@@ -23,7 +23,7 @@
                 <v-card-text dark>
                   <span v-for='member in members[clan.clan_name].slice(25*(j-1),25*j-1)' class="subheading">
                     <!-- <a :href="`https://www.bungie.net/en/Profile/${member.destiny_membership_type}/${member.destiny_id}/${member.destiny_name}`" target="_blank" style="color: #ffffff; text-decoration-line: none;"> -->
-                    <router-link :to="`/iron-profile/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}&clanName=${clan.clan_name}`" target="_blank" :style="getTextColor(member.destiny_membership_type)">
+                    <router-link :to="`/ironProfile/?membershipId=${member.destiny_id}&membershipType=${member.destiny_membership_type}&clanName=${clan.clan_name}`" :style="getTextColor(member.destiny_membership_type)">
                       <strong>
                         {{ member.destiny_name }}
                         <span v-if="member.admin" class="red--text caption text--darken-2">* Admin</span>
@@ -82,12 +82,12 @@
         }
       }
     },
-    beforeCreate () {
+    /* beforeCreate () {
       this.loading = true
     },
     beforeMount () {
       this.loading = true
-    },
+    }, */
     mounted () {
       this.clans = this.$store.state.ironCrew.clans
       this.members = this.$store.state.ironCrew.members
@@ -106,13 +106,13 @@
       this.cardCounts = cardCounts
       this.loading = false
     },
-    /* async fetch (context) {
+    async fetch (context) {
       let store = context.store
-      let url = process.env.API_ROOT_URL + '/ironcrew'
+      let url = `${process.env.API_ROOT_URL}/ironcrew`
 
       let ironCrew = await context.$axios.get(url)
       store.commit('setIronCrew', ironCrew.data)
-    }, */
+    },
     head () {
       return {
         title: this.title,

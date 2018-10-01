@@ -118,6 +118,7 @@
   export default {
     data () {
       return {
+        title: 'Iron Numbers',
         targetStats: [],
         modes: {
           labels: [],
@@ -141,6 +142,7 @@
             display: true,
             position: 'bottom',
             labels: {
+              boxWidth: 10,
               fontColor: 'rgb(255, 255, 255)',
               fontFamily: 'Roboto'
             }
@@ -180,6 +182,7 @@
             display: true,
             position: 'bottom',
             labels: {
+              boxWidth: 10,
               fontFamily: 'Roboto',
               fontColor: 'rgb(255,255,255)'
             }
@@ -256,6 +259,7 @@
             display: true,
             position: 'bottom',
             labels: {
+              boxWidth: 10,
               fontColor: 'rgb(255,255,255)',
               fontFamily: 'Roboto'
             }
@@ -354,7 +358,7 @@
     },
     mounted () {
       let ironNumbers = this.$store.state.ironNumbers
-      console.log(ironNumbers)
+      // console.log(ironNumbers)
       let url = 'https://io.dad2cl3.net/stats'
       /*
       let params = {
@@ -501,7 +505,7 @@
       let url = `${process.env.API_ROOT_URL}/stats`
 
       for (let i = 0; i < targetStats.length; i++) {
-        // console.log(targetStats[i])
+        console.log(`Loading target stat: ${targetStats[i]}`)
         let params = {
           stats: `${targetStats[i]}`
         }

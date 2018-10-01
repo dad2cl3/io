@@ -1,21 +1,22 @@
 <template>
   <v-container>
-    <!--          -->
-    <v-card dark width="600px">
+    <v-card class="guardian-card" dark>
       <v-card-title class="justify-center pa-2 display-1 font-weight-black">Random Guardian</v-card-title>
-      <v-img gradient="to top,rgba(0,0,0,0.4), rgba(0,0,0,0.4)" :src="profile.background" width="600px">
+      <v-img class="guardian-background" gradient="to top,rgba(0,0,0,0.4), rgba(0,0,0,0.4)" contain :src="profile.background">
         <v-layout row>
           <v-flex xs2>
-            <v-img :src="profile.avatarURL" width="90px"></v-img>
-            <!-- <v-img :src="profile.platformIcon"></v-img> -->
+            <v-img class="guardian-avatar" :src="profile.avatarURL"></v-img>
           </v-flex>
           <v-flex xs10>
-            <span class="headline font-weight-medium">{{ profile.gamertag }}</span><br/>
-            <span class="subheading font-weight-bold">{{ profile.clanName }}</span><br/>
-            <span class="subheading font-weight-regular font-italic">{{ profile.about }}</span>
+            <!-- <span class="gamertag headline font-weight-medium">{{ profile.gamertag }}</span><br/>
+            <span class="clan-name subheading font-weight-bold">{{ profile.clanName }}</span><br/>
+            <span class="about subheading font-weight-regular font-italic">{{ profile.about }}</span> -->
+            <!-- <span class="gamertag">{{ profile.gamertag }}</span><br/>
+            <span class="clan-name">{{ profile.clanName }}</span><br/>
+            <span class="about">{{ profile.about }}</span> -->
           </v-flex>
         </v-layout>
-        <v-layout row class="ma-2">
+        <!-- <v-layout row class="ma-2">
           <v-flex xs12>
             <v-layout row class="ma-2">
               <v-flex xs6 text-xs-center>
@@ -38,7 +39,7 @@
               </v-flex>
             </v-layout>
           </v-flex>
-        </v-layout>
+        </v-layout> -->
       </v-img>
     </v-card>
   </v-container>
@@ -58,4 +59,44 @@
 
 <style scoped>
 
+  .guardian-card {
+    width: 600px;
+  }
+
+  .guardian-background {
+    width: 600px;
+  }
+
+  .guardian-avatar {
+    width: 90px;
+  }
+
+  @media all and (max-width: 400px) {
+    .guardian-card {
+      width: 350px;
+    }
+
+    .guardian-background {
+      width: 350px;
+    }
+
+    .guardian-avatar {
+      width: 50px;
+    }
+
+    .gamertag {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .clan-name {
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .about {
+      font-size: 0.75rem;
+      font-style: italic;
+    }
+  }
 </style>

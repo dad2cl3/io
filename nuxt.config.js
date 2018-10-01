@@ -1,6 +1,6 @@
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -23,17 +23,17 @@ module.exports = {
   },
   plugins: ['~/plugins/vuetify.js', '~/plugins/pie.js'],
   css: [
+    '~/assets/main.css',
     '~/assets/style/app.styl'
   ],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/font-awesome'
+    '@nuxtjs/dotenv'
   ],
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: '~/components/siteLoadingDialog.vue',
   /*
   ** Build configuration
   */

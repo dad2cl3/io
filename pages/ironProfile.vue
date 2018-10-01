@@ -1,30 +1,27 @@
 <template>
-  <v-container dark>
-    <v-dialog v-if="!isLoaded">
-      <v-progress-circular indeterminate color="orange" :size="50" :width="5" v-if="!isLoaded"></v-progress-circular>
-    </v-dialog>
+  <v-container dark fluid>
     <v-card flat>
       <v-card class="account-profile" flat>
-        <v-card-title primary-title>
-          <v-layout row align-center justify-center>
-            <v-flex xs6>
-              <v-layout row justify-center>
-              <v-flex xs2 align-end>
-                <v-img :src="platformIcon" width="90px" contain></v-img>
+        <v-card-title primary-title class="ma-0 pa-2">
+          <v-container fluid>
+            <v-layout row justify-center>
+              <v-flex xs12>
+                <v-layout row align-center justify-center>
+                  <v-img class="platformIcon" :src="platformIcon"></v-img>
+                  <div>
+                    <span class="gamertag pl-2 text-xs-left">{{ $store.state.account.displayName }}</span><br/>
+                    <span class="clanName pl-2 text-xs-left">{{ clanName }}</span>
+                  </div>
+                </v-layout>
               </v-flex>
-              <v-flex xs4>
-                <span class="text-xs-left display-1 font-weight-bold" style="color: orange;">{{ $store.state.account.displayName }}</span><br/>
-                <span class="text-xs-left headline font-weight-bold" style="color: orange;">{{ clanName }}</span>
-              </v-flex>
-              </v-layout>
-            </v-flex>
-          </v-layout>
+            </v-layout>
+          </v-container>
         </v-card-title>
-        <!-- <AccountProfile :accountId="accountId" :membershipType="membershipType" :characters="characters" @characterSelected="characterId=$event"></AccountProfile> -->
+        <v-spacer class="my-2"></v-spacer>
         <AccountProfile :characters="$store.state.characters" @characterSelected="character=$event"></AccountProfile>
       </v-card>
-      <v-spacer></v-spacer>
-      <v-card class="character-profile" tile>
+      <v-spacer class="my-2"></v-spacer>
+      <v-card class="pb-4 character-profile" flat>
         <CharacterProfile :character="character" :characterId="characterId" v-if="character !== null"></CharacterProfile>
       </v-card>
     </v-card>
@@ -32,14 +29,14 @@
 </template>
 
 <script>
-  import AccountProfile from '../components/account-profile'
-  import CharacterProfile from '../components/character-profile'
-  import axios from 'axios'
+  import AccountProfile from '../components/accountProfile'
+  import CharacterProfile from '../components/characterProfile'
+  import ClientLoadingDialog from '../components/clientLoadingDialog'
 
   export default {
     data () {
       return {
-        isLoaded: false,
+        isLoading: null,
         character: null,
         characterId: null,
         clanName: '',
@@ -48,9 +45,10 @@
     },
     components: {
       AccountProfile,
-      CharacterProfile
+      CharacterProfile,
+      ClientLoadingDialog
     },
-    mounted () {
+    beforeMount () {
       this.character = this.$store.state.characters[0]
       this.characterId = this.$store.state.characters[0].character_id
       let platformType = this.$route.query.membershipType
@@ -69,7 +67,8 @@
       console.log(`Platform Icon: ${platformIcon}`)
       this.platformIcon = platformIcon
       this.clanName = `Iron Orange ${this.$route.query.clanName}`
-      this.isLoaded = true
+      // this.isLoaded = true
+      this.isLoading = false
     },
     async fetch (context) {
       // console.log(context)
@@ -81,7 +80,7 @@
         platform_type: context.query.membershipType
       }
 
-      let characters = await axios.get(url, { params })
+      let characters = await context.$axios.get(url, { params })
 
       // console.log(characters)
       store.commit('setCharacters', characters.data.data)
@@ -97,4 +96,32 @@
 
 <style scoped>
 
+  .gamertag {
+    font-size: 34px;
+    font-weight: bold;
+    color: orange;
+  }
+
+  .clanName {
+    font-size: 34px;
+    font-weight: bold;
+    color: orange;
+  }
+  .platformIcon {
+    max-width: 90px;
+  }
+
+  @media all and (max-width: 400px) {
+    .platformIcon {
+      max-width: 60px;
+    }
+
+    .gamertag {
+      font-size: 24px;
+    }
+
+    .clanName {
+      font-size: 24px;
+    }
+  }
 </style>

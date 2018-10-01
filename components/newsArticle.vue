@@ -24,7 +24,7 @@
         <v-btn flat small color="orange" block @click="showDetail = true">View Article</v-btn>
       </v-card-actions>
     </v-card>
-    <v-dialog v-model="showDetail" width="75%">
+    <v-dialog v-model="showDetail" width="70%">
       <v-card dark tile>
         <v-card-title primary-title class="pa-2">
           <div>
@@ -53,5 +53,15 @@
 </script>
 
 <style scoped>
+  .youtube-video {
+    width: 375px;
+    height: 210px;
+  }
 
+  @media all and (max-width: 400px) {
+    .youtube-video {
+      width: 375px;
+      height: 210px;
+    }
+  }
 </style>

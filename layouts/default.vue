@@ -55,35 +55,34 @@
   export default {
     data () {
       return {
-        isLoaded: false,
+        // isLoaded: false,
         clipped: false,
         drawer: false,
         fixed: false,
         items: [
           { icon: 'home', title: 'Home', to: '/' },
-          { icon: 'message', title: 'Iron Code', to: '/iron-code' },
-          { icon: 'pie_chart', title: 'Iron Numbers', to: '/iron-numbers' },
-          { icon: 'person', title: 'Iron Crew', to: '/iron-crew' },
-          { icon: 'collections', title: 'Iron Lore', to: '/iron-lore' },
-          { icon: 'assessment', title: 'Iron Application', to: '/iron-application' }
+          { icon: 'message', title: 'Iron Code', to: '/ironCode' },
+          { icon: 'pie_chart', title: 'Iron Numbers', to: '/ironNumbers' },
+          { icon: 'person', title: 'Iron Crew', to: '/ironCrew' },
+          { icon: 'collections', title: 'Iron Lore', to: '/ironLore' },
+          { icon: 'assessment', title: 'Iron Application', to: '/ironAdmin/ironApplication' }
         ],
-        icons: ['fa-facebook', 'fa-twitter', 'fa-instagram', 'fa-discord'],
         social: [
           {
             url: 'https://www.facebook.com/groups/ironorange/',
-            icon: 'fa-facebook'
+            icon: 'fab fa-facebook-f'
           },
           {
             url: 'https://twitter.com/TheIOClan',
-            icon: 'fa-twitter'
+            icon: 'fab fa-twitter'
           },
           {
             url: 'https://www.instagram.com/ironorangeclan/',
-            icon: 'fa-instagram'
+            icon: 'fab fa-instagram'
           },
           {
             url: 'https://discord.gg/uNXJD83',
-            icon: 'fa-discord'
+            icon: 'fab fa-discord'
           }
         ],
         miniVariant: false,

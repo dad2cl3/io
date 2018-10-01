@@ -1,5 +1,6 @@
 <template>
   <v-container class="pa-0">
+    <ClientLoadingDialog :isLoading="isLoading"></ClientLoadingDialog>
     <v-data-table :headers="headers" :items="items" hide-actions class="elevation-1" :pagination.sync="pagination" must-sort>
       <template slot="items" slot-scope="props">
         <td>{{ props.item.appDate }}</td>
@@ -7,29 +8,21 @@
         <td>{{ props.item.gamertag }}</td>
         <!-- <td class="text-xs-center"><v-btn flat small color="orange" @click.stop="dialog = true" @click="setAppId(props.item.appId)">View Application</v-btn></td> -->
         <td class="text-xs-center">
-          <nuxt-link :to="`/iron-application/${props.item.appId}`" style="color: orange; text-decoration: none;">View Application</nuxt-link>
+          <nuxt-link :to="`/ironAdmin/ironApplication/${props.item.appId}`" style="color: orange; text-decoration: none;">View Application</nuxt-link>
         </td>
       </template>
     </v-data-table>
-    <!-- <v-dialog v-model="dialog" max-width="300px" v-if="appDoc!=null">
-      <v-card tile>
-        <v-card-title primary-title>{{ appDoc.gamertag }}</v-card-title>
-        <v-card-media src="https://www.windowscentral.com/sites/wpcentral.com/files/styles/xlarge/public/field/image/2017/12/Destiny-2-e1490639926995_0.jpg?itok=xulShj7J" height="200px"></v-card-media>
-        <v-spacer></v-spacer>
-        <v-card-actions>
-          <v-btn flat small color="orange" block @click.stop="resetAppId">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> -->
   </v-container>
 </template>
 
 <script>
-  // import axios from 'axios'
+  import ClientLoadingDialog from '../../components/clientLoadingDialog'
 
   export default {
+    components: { ClientLoadingDialog },
     data () {
       return {
+        isLoading: true,
         dialog: false,
         appId: null,
         appDoc: null,
@@ -66,29 +59,8 @@
       }
     },
     methods: {
-      /* setAppId (appId) {
-        this.dialog = true
-        this.appId = appId
-        let params = {
-          app_id: appId
-        }
-
-        let url = `${process.env.API_ROOT_URL}/applications`
-
-        axios.get(url, { params })
-          .then(response => {
-            console.log(response.data)
-
-            this.appDoc = response.data
-          })
-      },
-      resetAppId () {
-        this.dialog = false
-        this.appId = null
-        // this.appDoc = null
-      } */
     },
-    mounted () {
+    beforeMount () {
       let applications = this.$store.state.ironApps
       let items = []
 
@@ -104,6 +76,7 @@
         items.push(item)
       })
       this.items = items
+      this.isLoading = false
     },
     async fetch (context) {
       let params = {
