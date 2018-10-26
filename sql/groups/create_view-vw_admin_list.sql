@@ -9,7 +9,7 @@ WITH members AS (
 		WHERE tc.clan_id = tm.clan_id
 		AND tm.member_id = tchar.member_id
 		AND tc.clan_name NOT IN ('Iron Orange 3rd Bn', 'Iron Orange Moon')
-		AND tchar.deleted IS NULL
+		AND tchar.deleted_flag = FALSE
 		GROUP BY tc.clan_name, tm.destiny_name, tm.destiny_membership_type, tm.added, tm.deleted, tm.admin, tm.versions_owned
 	)
 	SELECT JSONB_AGG(
